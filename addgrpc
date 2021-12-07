@@ -1,0 +1,43 @@
+cat > /usr/bin/addgrpc << EOF
+#!/bin/bash
+red='\e[1;31m'
+green='\e[0;32m'
+NC='\e[0m'
+domain=$(cat /etc/xrar/domain)
+until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+                read -rp "User: " -e user                     
+               CLIENT_EXISTS=$(grep -w $user /etc/xray/vtls.json | wc -l)
+               
+                if [[ ${CLIENT_EXISTS} == '1' ]]; then
+                        echo ""
+                        echo "A client with the specified name was already created, please choose an>
+                        exit 1
+                fi
+        done
+uuid=$(cat /proc/sys/kernel/random/uuid)
+read -p "Expired (days): " masaaktif
+exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
+sed -i '/#tls$/a\### '"$user $exp"'\
+},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/vtls.json
+sed -i '/#tls$/a\### '"$user $exp"'\
+},{"id": "'""$uuid""'","email": "'""$user""'"' /etc/xray/vnone.json
+vlesslink1="vless://${uuid}@${domain}:443?mode=multi&security=tls&encryption=none&type=grpc&serviceN>
+vlesslink2="vless://${uuid}@${domain}:80?mode=multi&security=none&encryption=none&type=grpc&serviceN>
+systemctl restart xray@vtls
+systemctl restart xray@vnone
+clear
+echo -e ""
+echo -e "==========-V2RAY/VLESS-=========="
+echo -e "Remarks        : ${user}"
+echo -e "Domain         : ${domain}"
+echo -e "port TLS       : 443"
+echo -e "id             : ${uuid}"
+echo -e "Encryption     : none"
+echo -e "network        : grpc"
+echo -e "path           : Bokir-Tampan"
+echo -e "================================="
+echo -e "link TLS       : ${vlesslink1}"
+echo -e "link None TLS  : ${vlesslink2}"
+echo -e "================================="
+echo -e "Expired On     : $exp"
+EOF
