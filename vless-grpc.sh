@@ -1,4 +1,5 @@
 #!/bin/bash
+#recode by bokirrrrr
 
 read -e -p " Masukan Domain :$domain" domain
 echo -e "$domain" >> /root/domain
