@@ -1,9 +1,8 @@
-cat > /usr/bin/addgrpc << EOF
 #!/bin/bash
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
-domain=$(cat /etc/xrar/domain)
+domain=$(cat /etc/xray/domain)
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
                 read -rp "User: " -e user                     
                CLIENT_EXISTS=$(grep -w $user /etc/xray/vtls.json | wc -l)
@@ -40,4 +39,3 @@ echo -e "link TLS       : ${vlesslink1}"
 echo -e "link None TLS  : ${vlesslink2}"
 echo -e "================================="
 echo -e "Expired On     : $exp"
-EOF
