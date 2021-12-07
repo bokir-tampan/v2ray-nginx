@@ -26,6 +26,7 @@ chmod +x /usr/local/bin/xray
 
 # // Make XRay  Root Folder
 
+mkdir -p /var/log/xray/
 mkdir -p /etc/xray/
 chmod 775 /etc/xray/
 mkdir /root/.acme.sh
@@ -38,8 +39,8 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 cat> /etc/xray/vtls.json << END
 {
     "log": {
-        "access": "/var/log/v2ray/access.log",
-        "error": "/var/log/v2ray/error.log",
+        "access": "/var/log/xray/access.log",
+        "error": "/var/log/xray/error.log",
         "loglevel": "warning"
     },
     "inbounds": [{
@@ -88,8 +89,8 @@ END
 cat> /etc/xray/vnone.json << END
 {
     "log": {
-        "access": "/var/log/v2ray/access.log",
-        "error": "/var/log/v2ray/error.log",
+        "access": "/var/log/xray/access.log",
+        "error": "/var/log/xray/error.log",
         "loglevel": "warning"
     },
     "inbounds": [{
