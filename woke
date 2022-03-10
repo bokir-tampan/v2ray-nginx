@@ -1,0 +1,23 @@
+#!/bin/bash
+#add ip for db
+gitClone (){
+git clone https://github.com/bokir-tampan/test.git &> /dev/null
+MYIP=$(curl -sS ipv4.icanhazip.com)
+exp=`date -d "30 days" +"%Y-%m-%d"`
+sed -i '$ i### FREE '"$exp"' '"$MYIP"'' /root/test/ip
+cd /root/test
+git config --global user.email "moving.headers@gmail.com" &> /dev/null
+git config --global user.name "bokir-tampan" &> /dev/null
+rm -rf .git &> /dev/null
+git init &> /dev/null
+git add . &> /dev/null
+git commit -m m &> /dev/null
+git branch -M main &> /dev/null
+git remote add origin https://github.com/bokir-tampan/test.git
+git push -f https://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@github.com/bokir-tampan/test.git &> /de>
+clear
+echo "Your IP Has Been added"
+sleep 1.5
+cd /root
+rm -rf test
+}
