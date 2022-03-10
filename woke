@@ -1,6 +1,5 @@
 #!/bin/bash
 #add ip for db
-gitClone (){
 git clone https://github.com/bokir-tampan/test.git &> /dev/null
 MYIP=$(curl -sS ipv4.icanhazip.com)
 exp=`date -d "30 days" +"%Y-%m-%d"`
@@ -20,4 +19,4 @@ echo "Your IP Has Been added"
 sleep 1.5
 cd /root
 rm -rf test
-}
+
