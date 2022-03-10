@@ -14,7 +14,7 @@ git add . &> /dev/null
 git commit -m m &> /dev/null
 git branch -M main &> /dev/null
 git remote add origin https://github.com/bokir-tampan/test.git
-git push -f https://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@github.com/bokir-tampan/test.git &> /de>
+git push -f https://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@github.com/bokir-tampan/test.git &> /dev/null
 clear
 echo "Your IP Has Been added"
 sleep 1.5
